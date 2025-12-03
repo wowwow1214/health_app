@@ -390,7 +390,7 @@ def weight_plot():
         ax.set_xlabel("Record Order (Old → New)")
 
         # ★ 統一標題：我的體重變化
-        ax.set_title("我的體重變化")
+        ax.set_title("")
 
         # X 軸標籤維持英文
         if len(weights) >= 2:
@@ -442,7 +442,7 @@ def strength_plot():
         ax.set_xlabel("Record Order (Bulk Mode Only)")
 
         # ★ 統一標題：我的肌力趨勢
-        ax.set_title("我的肌力趨勢（Bulk 模式）")
+        ax.set_title("")
 
         # X 軸標籤維持英文
         if len(scores) >= 2:
