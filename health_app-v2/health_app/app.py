@@ -57,6 +57,7 @@ def get_health_advice(blood_pressure_in, blood_pressure_out, blood_sugar, height
             fontLargestStrong['blood_pressure'].append("血壓在理想範圍內，狀態不錯！")
             fontSecondStrong['blood_pressure'].append("穩定的血壓對減脂、運動表現與心血管健康都很重要。")
             fontNormalStrong['blood_pressure'].extend([
+                "正常血壓範圍約為 90–120 / 60–80 mmHg。",
                 "可以維持每週 3–5 次、每次 30 分鐘以上的有氧運動。",
                 "搭配 2–3 次重量訓練，幫助增加肌肉量與基礎代謝率。"
             ])
@@ -94,6 +95,7 @@ def get_health_advice(blood_pressure_in, blood_pressure_out, blood_sugar, height
             fontLargestStrong['blood_sugar'].append("血糖目前在安全範圍內 👍")
             fontSecondStrong['blood_sugar'].append("穩定血糖有助於控制食慾與維持專注力。")
             fontNormalStrong['blood_sugar'].extend([
+                "空腹正常血糖約為 70–100 mg/dL，飯後兩小時約 70–140 mg/dL。",
                 "減脂方向建議：以『少油、少糖、多纖維』為原則，而不是完全不吃。",
                 "主食可以優先選擇原型澱粉（糙米、地瓜、燕麥）搭配足量蔬菜與蛋白質。"
             ])
@@ -110,6 +112,7 @@ def get_health_advice(blood_pressure_in, blood_pressure_out, blood_sugar, height
             fontLargestStrong['bmi'].append(f"你的 BMI 為 {bmi} → 肥胖範圍")
             fontSecondStrong['bmi'].append("建議以『健康減脂』為長期目標，而不是速成瘦身。")
             fontNormalStrong['bmi'].extend([
+                "正常BMI範圍為18.5-24。",
                 "每週可先設定減重 0.5–1.0 公斤為目標，避免減太快造成肌肉流失。",
                 "飲食：控制總熱量、優先確保蛋白質，減少含糖飲料與油炸食物。",
                 "運動：每週 3–5 次有氧 + 2–3 次重量訓練，循序漸進即可。"
@@ -121,6 +124,7 @@ def get_health_advice(blood_pressure_in, blood_pressure_out, blood_sugar, height
             fontLargestStrong['bmi'].append(f"你的 BMI 為 {bmi} → 過重")
             fontSecondStrong['bmi'].append("再調整一些生活習慣，就有機會回到理想範圍！")
             fontNormalStrong['bmi'].extend([
+                "正常BMI範圍為18.5-24。",
                 "可以從『每天少一杯含糖飲料』或『晚餐少半碗飯』開始建立熱量赤字。",
                 "若有計算 TDEE，可將每日攝取略微壓在 TDEE 以下，讓體脂慢慢下降。"
             ])
@@ -131,6 +135,7 @@ def get_health_advice(blood_pressure_in, blood_pressure_out, blood_sugar, height
             fontLargestStrong['bmi'].append(f"你的 BMI 為 {bmi} → 體重在正常範圍 🙂")
             fontSecondStrong['bmi'].append("如果目標是『體態更精實』或『線條更明顯』，仍可透過飲食與運動微調。")
             fontNormalStrong['bmi'].extend([
+                "正常BMI範圍為18.5-24。",
                 "可以參考 TDEE，把每日熱量稍微壓在 TDEE 以下一點點，讓體脂慢慢下降。",
                 "持續規律重量訓練，有助於增加肌肉量與改善體態比例。",
                 "避免過度節食，否則容易掉肌肉、代謝降低，反而不利於體態維持。"
@@ -367,6 +372,7 @@ def info():
 # ========= 體重折線圖 =========
 
 @app.route('/weight_plot.png')
+@app.route('/weight_plot.png')
 def weight_plot():
     nickname = session.get('nickname')
     dates, weights = get_weight_history_for_nickname(nickname)
@@ -377,26 +383,31 @@ def weight_plot():
         x = np.arange(len(weights))
         ax.plot(x, weights, marker='o')
 
-        ax.set_ylabel("體重 (kg)")
-        ax.set_xlabel("紀錄時間（由舊到新）")
+        # 英文 Y 軸
+        ax.set_ylabel("Weight (kg)")
+        ax.set_xlabel("Record Order (Old → New)")
 
+        # 英文標題
         if nickname:
-            ax.set_title(f"{nickname} 的體重變化趨勢")
+            ax.set_title(f"{nickname}'s Weight Trend")
         else:
-            ax.set_title("體重變化趨勢")
+            ax.set_title("Weight Trend")
 
+        # X 軸標籤改英文
         if len(weights) >= 2:
             ax.set_xticks([0, len(weights) - 1])
-            ax.set_xticklabels(["第一次", "最新一次"])
+            ax.set_xticklabels(["First", "Latest"])
         else:
             ax.set_xticks([0])
-            ax.set_xticklabels(["第一次"])
+            ax.set_xticklabels(["First"])
 
         ax.margins(x=0.05, y=0.1)
+
     else:
+        # 無資料時英文提示
         ax.text(
             0.5, 0.5,
-            "目前沒有足夠體重紀錄，\n先多紀錄幾次再來看吧！",
+            "Not enough weight records.\nRecord a few more times!",
             ha='center', va='center',
             transform=ax.transAxes, fontsize=11
         )
@@ -414,6 +425,7 @@ def weight_plot():
 # ========= ⭐ bulk 模式肌力提升趨勢圖 =========
 
 @app.route('/strength_plot.png')
+@app.route('/strength_plot.png')
 def strength_plot():
     nickname = session.get('nickname')
     dates, scores = get_strength_history_for_nickname(nickname)
@@ -424,28 +436,29 @@ def strength_plot():
         x = np.arange(len(scores))
         ax.plot(x, scores, marker='o')
 
-        ax.set_ylabel("肌力指標（例如最大深蹲 kg）")
-        ax.set_xlabel("紀錄時間（僅增肌 bulk 模式）")
+        ax.set_ylabel("Strength Score (e.g., Squat kg)")
+        ax.set_xlabel("Record Order (Bulk Mode Only)")
 
         if nickname:
-            ax.set_title(f"{nickname} 的肌力提升趨勢（增肌模式）")
+            ax.set_title(f"{nickname}'s Strength Progress (Bulk Mode)")
         else:
-            ax.set_title("肌力提升趨勢（增肌模式）")
+            ax.set_title("Strength Progress (Bulk Mode)")
 
         if len(scores) >= 2:
             ax.set_xticks([0, len(scores) - 1])
-            ax.set_xticklabels(["第一次", "最新一次"])
+            ax.set_xticklabels(["First", "Latest"])
         else:
             ax.set_xticks([0])
-            ax.set_xticklabels(["第一次"])
+            ax.set_xticklabels(["First"])
 
         ax.margins(x=0.05, y=0.1)
+
     else:
         ax.text(
             0.5, 0.5,
-            "目前沒有『增肌（bulk）模式』的肌力紀錄，\n請在首頁選擇增肌並填寫今日肌力指標。",
+            "No 'bulk' strength records.\nSelect bulk mode and enter today's strength score.",
             ha='center', va='center',
-            transform=ax.transAxes, fontsize=11
+            transform=ax.transAxes, fontsize=10
         )
         ax.set_axis_off()
 
