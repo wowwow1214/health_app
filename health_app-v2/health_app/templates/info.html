@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更多資訊</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- 字體 （google front LXGW WenKai TC Static） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+    <style>
+        .back-home {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back-home a {
+            text-decoration: none;
+            color: white;
+            background-color: #264653;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+        .back-home a:hover {
+            background-color: #2A9D8F;
+        }
+    </style>
+</head>
+<body>
+    <div class="infocontainer">
+        
+        <h1>運動APP建議</h1>
+        <h1>---------------------------------------------------------------------------</h1>
+        <div class="background">
+            <h2>ASICS Runkeeper - Run Tracker</h2>
+            <img src="{{ url_for('static', filename='images/sport1.png') }}" alt="App 1">
+            <h3>功能：記錄慢跑步速、距離、時間、卡路里、利用 GPS 連線記錄跑步地圖、預先設定好預定路線進行練習。</h3>
+            <h3>特色：每當跑步到一定時間、距離時，透過語音提醒使用者跑步成績，讓使用者不用拿起手機也即時知道詳細數據，加上它可連線 Spotify、iTunes 播放音樂，跑步再也不會無聊。</h3>
+        </div>
+        <div class="background">
+            <h2>私人健身教練 無須機械</h2>
+            <img src="{{ url_for('static', filename='images/sport2.png') }}" alt="App 2">
+            <h3>功能：可自行設定每周目標，也有7x4挑戰；有分全身或下半身運動兩種選擇，也有單一部位初、中、高階鍛鍊；會紀錄鍛鍊多少課程、消耗多少卡以及時間長度，還可計算BMI和自行調整休息時間</h3>
+            <h3>特色：介面設計簡單、主題性鍛鍊計畫、針對動作正不正確有詳細解釋和 YouTube解釋影片</h3>
+        </div>
+        <div class="background">
+            <h2>熱汗舞蹈 DanceFitme：AI智能生成舞蹈健身計畫</h2>
+            <img src="{{ url_for('static', filename='images/sport3.jpg') }}" alt="App 3">
+            <h3>功能：提供高能量舞蹈鍛煉和有氧運動，根據選擇的音樂用舞塊移動身體，可選擇全身或特定部位的鍛鍊</h3>
+            <h3>特色：根據使用者的身體狀況、減肥目標和想要改善的部位為使用者定制舞蹈鍛練計劃、具多種風格的舞蹈鍛練方式可選擇</h3>
+        </div>
+    </div>
+
+</body>

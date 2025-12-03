@@ -1,0 +1,230 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex; /* 使用 Flexbox 佈局 */
+    flex-direction: column; /* 垂直排列子元素 */
+    align-items: center;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px); /* 向上移動 */
+    }
+    50% {
+        transform: translateY(0); /* 回到原來位置 */
+    }
+    70% {
+        transform: translateY(-5px); /* 輕微向上移動 */
+    }
+    100% {
+        transform: translateY(0); /* 最終回到原來位置 */
+    }
+}
+
+.anime-text {
+    animation: bounce 1s ease forwards; /* 動畫只執行一次，並保持在結束狀態 */
+}
+
+.upper_container{
+    width: 100%;
+    height: 200px;
+    padding-bottom: 50px;
+
+    /*背景*/
+    /* background-color: lightgray; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 到時候放一張看起來很健康，綠色色調的圖 */
+    background-image: url('https://www.mattpaynephotography.com/images/xl/Preventative-MedicineFebruary-05-2020.webp');
+    
+    display: flex;
+    flex-direction: column;  /* 垂直排列子元素 */
+    justify-content: flex-end;  /* 將內容對齊到底部 */
+    text-align: center;
+    color: #ffffff;
+    font-size: 3.5em;
+    font-weight: bold;
+
+}
+.lower_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.lower_container_index {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.lower_container_index_left{
+    width: 30%;
+    background: lightgray;
+    text-align: left;
+    margin: 20px;
+    padding: 20px;
+}
+.lower_container_index_right{
+    width: 70%;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    background: lightgray;
+}
+
+/*左中右那三大塊*/
+.advice-container {
+    display: flex;
+    justify-content: space-between; /* 或者使用 space-evenly */
+    gap: 20px; /* 建議之間的間距 */
+}
+
+.advice-section {
+    flex: 1; /* 每個子項目分配相同的空間 */
+    padding: 20px;
+    background-color: #c0ddea; /* 可選：設置背景色以區分 */
+    /* border: 1px solid #ccc; 可選：加邊框 */
+    box-sizing: border-box; /* 確保 padding 不影響寬度計算 */
+    height: 570px; /* 固定高度 */
+    overflow: auto; /* 如果內容超過高度，允許滾動 */
+}
+/* .advice-section:hover {
+    padding: 20px;
+    background-color: #264653;
+    box-sizing: border-box;
+    height: 570px;
+    overflow: auto;
+} */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label, input, button {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+button {
+    background-color: #264653;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {/*滑鼠停留在button上的顏色*/
+    background-color: #2A9D8F;
+}
+
+.advice {
+    margin-top: 20px;
+}
+
+.advice ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.aling_two_buttom {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.flexbox {
+    display: flex;
+    align-items: center; /* 使 label 和 input 垂直對齊 */
+    width: 100%;
+}
+
+.flexbox label {
+    margin-right: 10px; /* label 和 input 之間的間距 */
+    font-size: 1.2em;
+    font-family: "LXGW WenKai TC", cursive;
+}
+
+.flexbox input {
+    font-size: 1em;
+    font-family: "LXGW WenKai TC", cursive;
+    flex-grow: 1; /* 輸入框自動填滿剩餘的空間 */
+    padding: 8px;
+    border: 1px solid #ccc; /* 輸入框邊框 */
+    border-radius: 4px; /* 邊框圓角 */
+}
+
+.advice h2 {
+    color: #333;
+}
+
+.font-largest-strong li {
+    font-size: 1.2em;
+    color: #264653;
+}
+
+.font-second-strong li {
+    /* google找的字體 */
+    font-family: "LXGW WenKai TC", cursive;
+    font-weight: 400;
+    font-style: normal;
+
+    font-size: 1.1em;
+    color: #ffffff;
+    background-color: #264653; 
+}
+
+.font-normal-strong li {
+    /* google找的字體 */
+    font-family: "LXGW WenKai TC", cursive;
+    font-weight: 400;
+    font-style: normal;
+
+    font-size: 1em;
+    color: #000000;
+    /* font-style: italic; 如果要斜體*/
+    text-align: left;
+}
+
+.font-normal li {
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* .advice-section {
+    margin-right: 20px;
+} */
+
+.infocontainer {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.background {
+    background-color: #ccc;
+    margin-bottom: 10px;
+}
+.sports-apps {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.sports-apps img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover; /* 確保不會變形 */
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+
+.sports-apps img:hover {
+    transform: scale(1.1);
+}

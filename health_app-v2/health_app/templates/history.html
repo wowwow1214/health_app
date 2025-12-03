@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>歷史紀錄</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f3f4f6; }
+        .table-container { overflow-x: auto; }
+        table { min-width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid #e5e7eb; padding: 12px; text-align: left; white-space: nowrap; }
+        th { background-color: #f9fafb; font-weight: bold; color: #374151; }
+        tr:nth-child(even) { background-color: #f9fafb; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+<div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">健康追蹤歷史紀錄</h1>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- 左欄：所有公開紀錄 -->
+        <div>
+            <h2 class="text-xl font-bold mb-4 text-blue-700 border-l-4 border-blue-700 pl-3">大家的紀錄</h2>
+            <div class="table-container bg-white rounded shadow">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>暱稱</th>
+                            <th>BMI</th>
+                            <th>TDEE</th>
+                            <th>心情</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in public_records[-10:]|reverse %}
+                        <tr>
+                            <td class="text-sm text-gray-500">{{ r.datetime[:16] }}</td>
+                            <td>{{ r.display_name }}</td>
+                            <td>{{ r.bmi }}</td>
+                            <td class="text-blue-600 font-bold">{{ r.tdee }}</td>
+                            <td>{{ r.mood }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 右欄：個人紀錄 -->
+        <div>
+            <h2 class="text-xl font-bold mb-4 text-green-700 border-l-4 border-green-700 pl-3">
+                我的紀錄 {% if my_nickname %}({{ my_nickname }}){% endif %}
+            </h2>
+            
+            {% if my_records %}
+            <div class="table-container bg-white rounded shadow">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>身高/體重</th>
+                            <th>BMI</th>
+                            <th>TDEE</th>
+                            <th>血壓</th>
+                            <th>血糖</th>
+                            <th>肌力指標</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in my_records|reverse %}
+                        <tr>
+                            <td class="text-sm text-gray-500">{{ r.datetime[:10] }}</td>
+                            <td>{{ r.height }}/{{ r.weight }}</td>
+                            <td>{{ r.bmi }}</td>
+                            <td class="text-blue-600 font-bold">{{ r.tdee }}</td>
+                            <td>
+                                {% if r.bp_in and r.bp_out %}
+                                    {{ r.bp_in|int }}/{{ r.bp_out|int }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>{{ r.blood_sugar }}</td>
+                            <td>{{ r.strength }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 體重變化折線圖 -->
+            <div class="bg-white mt-4 p-4 rounded shadow flex flex-col items-center">
+                <h3 class="text-lg font-semibold mb-2 text-gray-800">我的體重變化</h3>
+                <img src="{{ url_for('weight_plot') }}" 
+                     alt="體重變化折線圖"
+                     class="max-w-full rounded shadow">
+                <p class="text-xs text-gray-500 mt-2">
+                    圖表依照紀錄時間由左到右排列，建議持續紀錄體重，追蹤自己的變化。
+                </p>
+            </div>
+
+            <!-- ⭐ 增肌模式：肌力提升趨勢圖 -->
+            <div class="bg-white mt-4 p-4 rounded shadow flex flex-col items-center">
+                <h3 class="text-lg font-semibold mb-2 text-gray-800">我的肌力提升趨勢（增肌 bulk 模式）</h3>
+                <img src="{{ url_for('strength_plot') }}" 
+                     alt="肌力提升趨勢圖"
+                     class="max-w-full rounded shadow">
+                <p class="text-xs text-gray-500 mt-2">
+                    只有在首頁選擇「增肌 💪」並填寫「今日肌力指標」的紀錄，才會出現在這張圖中。
+                </p>
+            </div>
+
+            {% else %}
+                <div class="bg-white p-6 rounded shadow text-center text-gray-500">
+                    <p>尚未有您的紀錄，請先進行檢測並輸入相同的暱稱。</p>
+                    <a href="/" class="inline-block mt-4 text-blue-600 underline">去首頁檢測</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="text-center mt-8">
+        <a href="/" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">返回首頁</a>
+    </div>
+</div>
+
+</body>
+</html>

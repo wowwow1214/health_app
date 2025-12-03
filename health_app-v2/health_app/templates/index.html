@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="upper_container">
+        <div class="anime-text">健康助手</div>
+    </div>
+
+    <div class="lower_container_index">
+        <div class="lower_container_index_left">
+            <h2> step1: key in </h2>
+            <h2> step2: 查看建議與歷史紀錄 </h2>
+        </div>
+
+        <div class="lower_container_index_right">
+            <form method="POST" action="{{ url_for('result') }}">
+
+                <div class="flexbox">
+                    <label for="nickname">暱稱：</label>
+                    <input type="text" id="nickname" name="nickname" placeholder="例如：小艾" required>
+                </div>
+
+                <div class="flexbox">
+                    <label for="hide_nickname">在全體紀錄中隱藏暱稱（顯示為匿名用戶）</label>
+                    <input type="checkbox" id="hide_nickname" name="hide_nickname" value="yes">
+                </div>
+
+                <!-- 新增：年齡 -->
+                <div class="flexbox">
+                    <label for="age">年齡：</label>
+                    <input type="number" id="age" name="age" min="1" max="120" required>
+                </div>
+
+                <!-- 新增：性別 -->
+                <div class="flexbox">
+                    <label for="gender">性別：</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">男性</option>
+                        <option value="female">女性</option>
+                    </select>
+                </div>
+
+                <div class="flexbox">
+                    <label for="blood_pressure_in">收縮壓(mmHg):</label>
+                    <input type="number" id="blood_pressure_in" name="blood_pressure_in" step="0.1">
+                    <label for="blood_pressure_out">舒張壓(mmHg):</label>
+                    <input type="number" id="blood_pressure_out" name="blood_pressure_out" step="0.1">
+                </div>
+
+                <div class="flexbox">
+                    <label for="blood_sugar">血糖(mg/dL):</label>
+                    <input type="number" id="blood_sugar" name="blood_sugar" step="0.1">
+                </div>
+
+                <div class="flexbox">
+                    <label for="height">身高(cm):</label>
+                    <input type="number" id="height" name="height" step="0.1">
+                    <label for="weight">體重(kg):</label>
+                    <input type="number" id="weight" name="weight" step="0.1">
+                </div>
+
+
+                <!-- 活動量：修正 name 為 activity_level -->
+                <div class="flexbox">
+                    <label for="activity">活動量：</label>
+                    <select name="activity_level" id="activity" required>
+                        <option value="1.2">久坐不動（幾乎不運動）</option>
+                        <option value="1.375">輕度活動（每週 1–3 天輕度運動）</option>
+                        <option value="1.55">中度活動（每週 3–5 天適量運動）</option>
+                        <option value="1.725">高強度活動（每週 6–7 天運動）</option>
+                        <option value="1.9">非常高強度活動（每天劇烈運動或勞力工作）</option>
+                    </select>
+                </div>
+                
+                <!-- 新增：體態目標選擇 (Goal) -->
+                                <!-- 新增：體態目標選擇 (Goal) -->
+                <div class="flexbox">
+                    <label for="goal">體態目標：</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="radio" id="bulk" name="goal" value="bulk" required>
+                        <label for="bulk" style="margin-right: 20px;">增肌 💪</label>
+                        
+                        <input type="radio" id="cut" name="goal" value="cut">
+                        <label for="cut">減脂 🥗</label>
+                    </div>
+                </div>
+
+                <!-- ⭐ 新增：今日肌力指標（給 bulk 畫圖用，也可以 cut 留白） -->
+                <div class="flexbox">
+                    <label for="strength_score">今日肌力指標（例如最大深蹲重量，kg，可留白）：</label>
+                    <input type="number" id="strength_score" name="strength_score" step="0.1">
+                </div>
+
+
+                <div class="flexbox">
+                    <label for="mood">心情:</label>
+                    <select id="mood" name="mood">
+                        <option value="開心">開心</option>
+                        <option value="難過">難過</option>
+                        <option value="焦慮">焦慮</option>
+                        <option value="生氣">生氣</option>
+                        <option value="挫折">挫折</option>
+                    </select>
+                </div>
+
+                <button type="submit">取得健康建議</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
