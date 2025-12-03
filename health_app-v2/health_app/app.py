@@ -374,6 +374,7 @@ def info():
 @app.route('/weight_plot.png')
 @app.route('/weight_plot.png')
 @app.route('/weight_plot.png')
+@app.route('/weight_plot.png')
 def weight_plot():
     nickname = session.get('nickname')
     dates, weights = get_weight_history_for_nickname(nickname)
@@ -384,17 +385,14 @@ def weight_plot():
         x = np.arange(len(weights))
         ax.plot(x, weights, marker='o')
 
-        # 英文 Y 軸 / X 軸（保持不變）
+        # 英文座標軸
         ax.set_ylabel("Weight (kg)")
         ax.set_xlabel("Record Order (Old → New)")
 
-        # ★ 標題改成中文暱稱
-        if nickname:
-            ax.set_title(f"{nickname} 的體重變化")
-        else:
-            ax.set_title("體重變化")
+        # ★ 統一標題：我的體重變化
+        ax.set_title("我的體重變化")
 
-        # X 軸標籤（保持英文）
+        # X 軸標籤維持英文
         if len(weights) >= 2:
             ax.set_xticks([0, len(weights) - 1])
             ax.set_xticklabels(["First", "Latest"])
@@ -405,7 +403,6 @@ def weight_plot():
         ax.margins(x=0.05, y=0.1)
 
     else:
-        # 無資料時英文提示
         ax.text(
             0.5, 0.5,
             "Not enough weight records.\nRecord a few more times!",
@@ -423,8 +420,10 @@ def weight_plot():
     return Response(buf.getvalue(), mimetype='image/png')
 
 
+
 # ========= ⭐ bulk 模式肌力提升趨勢圖 =========
 
+@app.route('/strength_plot.png')
 @app.route('/strength_plot.png')
 @app.route('/strength_plot.png')
 @app.route('/strength_plot.png')
@@ -438,17 +437,14 @@ def strength_plot():
         x = np.arange(len(scores))
         ax.plot(x, scores, marker='o')
 
-        # 保持英文座標軸
+        # 英文軸標保持不變
         ax.set_ylabel("Strength Score (e.g., Squat kg)")
         ax.set_xlabel("Record Order (Bulk Mode Only)")
 
-        # ★ 只有標題改成「中文暱稱＋肌力趨勢」
-        if nickname:
-            ax.set_title(f"{nickname} 的肌力趨勢（Bulk 模式）")
-        else:
-            ax.set_title("肌力趨勢（Bulk 模式）")
+        # ★ 統一標題：我的肌力趨勢
+        ax.set_title("我的肌力趨勢（Bulk 模式）")
 
-        # X 軸標籤維持 First / Latest
+        # X 軸標籤維持英文
         if len(scores) >= 2:
             ax.set_xticks([0, len(scores) - 1])
             ax.set_xticklabels(["First", "Latest"])
