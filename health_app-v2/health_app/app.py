@@ -3,9 +3,11 @@ import csv
 import random
 import os
 from datetime import datetime
+from zoneinfo import ZoneInfo   # 🔹新增這行
 
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")  # 使用非互動後端
 import matplotlib.pyplot as plt
 
@@ -335,7 +337,11 @@ def result():
     bmr_val = tdee_data['bmr'] if tdee_data else ""
     goal_val = goal if goal else ""
 
-    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # 使用台灣時區（UTC+8）
+    current_date = datetime.now(ZoneInfo("Asia/Taipei")).strftime("%Y-%m-%d %H:%M:%S")
+
+    # CSV 寫入
+    # 結構：0日期,1暱稱,2收縮,3舒張,4血糖,5身高,6體重,7BMI,8心情,9鼓勵語,10hide,
 
     # CSV 寫入
     # 結構：0日期,1暱稱,2收縮,3舒張,4血糖,5身高,6體重,7BMI,8心情,9鼓勵語,10hide,
